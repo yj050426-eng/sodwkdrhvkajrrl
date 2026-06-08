@@ -1,6 +1,7 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 
 const app = express();
 
@@ -8,62 +9,60 @@ app.use(cors());
 app.use(express.json());
 
 
-// 테스트
-app.get("/", (req, res) => {
+// ===============================
+// 레시피 API
+// ===============================
 
-  res.send("서버 정상");
-
-});
-
-
-// 레시피 추천 API
 app.post("/recipe", async (req, res) => {
 
   try {
 
-    const { ingredients } = req.body;
+    const ingredients =
+      req.body.ingredients || [];
 
     const prompt = `
-너는 AI 요리 추천 시스템이다.
 
-사용자가 가진 재료를 분석해서
-가장 어울리는 요리 3개를 추천해줘.
+너는 요리 추천 AI다.
+
+사용자가 가진 재료를 기반으로
+여러 개의 레시피를 추천해라.
+
+규칙:
+
+1. 사용자가 가진 재료와 겹치는 재료가 많은 레시피를 우선 추천
+2. 최소 3개의 레시피 추천
+3. matchScore는 재료 일치율 퍼센트
+4. ownedIngredients에는 사용자가 가진 재료
+5. missingIngredients에는 부족한 재료
+6. steps는 요리 순서
+7. 반드시 JSON 형식만 출력
+8. 설명 문장 금지
+9. 김치가 있으면:
+김치볶음밥,
+김치찌개,
+김치전
+등 다양하게 추천
 
 사용자 재료:
 ${ingredients.join(", ")}
 
-반드시 JSON 형식으로만 답변해.
+JSON 형식:
 
 {
-  "recipes":[
+  "recipes": [
     {
-      "name":"요리 이름",
-
-      "description":"요리 설명",
-
-      "matchScore":95,
-
-      "ownedIngredients":[
-        "재료1",
-        "재료2"
-      ],
-
-      "missingIngredients":[
-        "재료1",
-        "재료2"
-      ],
-
-      "steps":[
-        "1단계",
-        "2단계",
-        "3단계"
-      ]
+      "name": "레시피 이름",
+      "description": "레시피 설명",
+      "matchScore": 90,
+      "ownedIngredients": [],
+      "missingIngredients": [],
+      "steps": []
     }
   ]
 }
+
 `;
 
-    // OpenRouter API 요청
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -82,7 +81,8 @@ ${ingredients.join(", ")}
 
         body: JSON.stringify({
 
-          model: "openai/gpt-3.5-turbo",
+          model:
+            "mistralai/mistral-7b-instruct",
 
           messages: [
             {
@@ -96,13 +96,13 @@ ${ingredients.join(", ")}
       }
     );
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
     console.log(data);
 
     const text =
-      data.choices[0]
-      .message.content;
+      data.choices[0].message.content;
 
     res.send(text);
 
@@ -110,31 +110,22 @@ ${ingredients.join(", ")}
 
     console.log(error);
 
-    res.status(500).send(`
-    {
-      "recipes":[
-        {
-          "name":"오류",
-          "description":"AI 오류",
-          "matchScore":0,
-          "ownedIngredients":[],
-          "missingIngredients":[],
-          "steps":[
-            "잠시 후 다시 시도해주세요"
-          ]
-        }
-      ]
-    }
-    `);
+    res.status(500).send("서버 오류");
 
   }
 
 });
 
 
-// 서버 실행
-app.listen(3000, () => {
+// ===============================
+// Render 배포용
+// ===============================
 
-  console.log("✅ 서버 실행중");
+const PORT =
+  process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+
+  console.log(`✅ 서버 실행중 ${PORT}`);
 
 });
