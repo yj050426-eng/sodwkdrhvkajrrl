@@ -81,8 +81,7 @@ JSON 형식:
 
         body: JSON.stringify({
 
-          model:
-            "mistralai/mistral-7b-instruct",
+          model: "openai/gpt-3.5-turbo",
 
           messages: [
             {
@@ -100,6 +99,22 @@ JSON 형식:
       await response.json();
 
     console.log(data);
+
+    
+    // ===============================
+    // 오류 방지
+    // ===============================
+
+    if (!data.choices) {
+
+      console.log(data);
+
+      return res
+        .status(500)
+        .send("AI 응답 오류");
+
+    }
+
 
     const text =
       data.choices[0].message.content;
