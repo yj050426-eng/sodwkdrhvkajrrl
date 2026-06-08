@@ -291,9 +291,9 @@ recommendBtn.addEventListener(
               🍳 ${recipe.name}
             </h2>
 
-            <p>
-              ${recipe.description}
-            </p>
+<p>
+  ${recipe.description || ""}
+</p>
 
             <h3>
               재료 일치율
