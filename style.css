@@ -1,0 +1,290 @@
+/* =========================
+전체 배경
+========================= */
+
+body {
+
+  margin: 0;
+  padding: 0;
+
+  font-family: "Pretendard", sans-serif;
+
+  background: linear-gradient(
+    135deg,
+    #ffe4ec,
+    #ffd6e7,
+    #ffc2dc
+  );
+
+  min-height: 100vh;
+
+  text-align: center;
+
+  color: #ff4f87;
+}
+
+
+/* =========================
+시작 화면
+========================= */
+
+#start-screen {
+
+  height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+#start-screen h1 {
+
+  font-size: 50px;
+
+  color: white;
+
+  text-shadow:
+    0 4px 10px rgba(0,0,0,0.15);
+
+  margin-bottom: 30px;
+}
+
+
+/* =========================
+시작 버튼
+========================= */
+
+#start-btn {
+
+  padding: 18px 45px;
+
+  border: none;
+
+  border-radius: 20px;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  background: linear-gradient(
+    135deg,
+    #ff7eb3,
+    #ff4f87
+  );
+
+  color: white;
+
+  box-shadow:
+    0 8px 20px rgba(255, 105, 180, 0.3);
+
+  transition: 0.3s;
+}
+
+#start-btn:hover {
+
+  transform: scale(1.05);
+
+  opacity: 0.9;
+}
+
+
+/* =========================
+메인 화면
+========================= */
+
+#main-screen {
+
+  display: none;
+
+  padding: 40px 20px;
+}
+
+
+/* =========================
+입력창
+========================= */
+
+#ingredient-input {
+
+  width: 280px;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  background: #fff0f5;
+
+  font-size: 16px;
+
+  outline: none;
+
+  box-shadow:
+    0 4px 10px rgba(255,182,193,0.3);
+}
+
+
+/* =========================
+버튼 공통
+========================= */
+
+#add-btn,
+#recommend-btn {
+
+  padding: 14px 22px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  cursor: pointer;
+
+  background: linear-gradient(
+    135deg,
+    #ff9ac2,
+    #ff6fa5
+  );
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+  margin-left: 10px;
+
+  box-shadow:
+    0 4px 10px rgba(255,105,180,0.25);
+
+  transition: 0.3s;
+}
+
+#add-btn:hover,
+#recommend-btn:hover {
+
+  transform: scale(1.05);
+
+  opacity: 0.9;
+}
+
+
+/* =========================
+재료 리스트
+========================= */
+
+#ingredients-list {
+
+  margin-top: 25px;
+}
+
+.ingredient-tag {
+
+  display: inline-block;
+
+  background: linear-gradient(
+    135deg,
+    #ffb6d5,
+    #ff8fb8
+  );
+
+  color: white;
+
+  padding: 10px 16px;
+
+  border-radius: 25px;
+
+  margin: 6px;
+
+  font-weight: bold;
+
+  box-shadow:
+    0 4px 10px rgba(255,182,193,0.3);
+}
+
+.ingredient-tag button {
+
+  margin-left: 10px;
+
+  border: none;
+
+  background: transparent;
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  font-size: 15px;
+}
+
+
+/* =========================
+결과 박스
+========================= */
+
+#result {
+
+  margin-top: 35px;
+
+  width: 85%;
+
+  max-width: 700px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  background: rgba(255,255,255,0.7);
+
+  backdrop-filter: blur(10px);
+
+  border-radius: 30px;
+
+  padding: 30px;
+
+  box-shadow:
+    0 8px 25px rgba(255,182,193,0.3);
+
+  color: #ff4f87;
+
+  text-align: left;
+}
+
+
+/* =========================
+결과 제목
+========================= */
+
+#result h2 {
+
+  text-align: center;
+
+  color: #ff4f87;
+}
+
+
+/* =========================
+레시피 단계
+========================= */
+
+#result ol {
+
+  line-height: 2;
+}
+
+
+/* =========================
+스크롤 부드럽게
+========================= */
+
+html {
+
+  scroll-behavior: smooth;
+}
