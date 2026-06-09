@@ -1,5 +1,5 @@
 /* ==========================================
-   1. 가독성 최고봉 프리텐다드 스타일 폰트 로드
+   1. 가독성 최고봉 프리텐다드 스타일 폰트 유지
    ========================================== */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 
@@ -8,71 +8,80 @@
    ========================================== */
 body {
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-  /* 🧊 노란기를 쏙 뺀 시원하고 세련된 쿨톤 파스텔 핑크 그라데이션 */
+  /* 🧊 시원하고 고급스러운 쿨톤 파스텔 핑크 그라데이션 */
   background: linear-gradient(145deg, #fff2f5 0%, #ffd6e0 50%, #ffbccc 100%);
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center; /* 가로 기준 가운데 정렬 */
+  align-items: center; 
   justify-content: center;
   min-height: 100vh;
   letter-spacing: -0.3px;
 }
 
-/* 메인 컨테이너 (깔끔하면서도 라운딩 엣지를 살린 모던 스타일) */
+/* 메인 컨테이너 (깔끔함과 정갈함을 강조한 트렌디 디자인) */
 .container {
-  background-color: rgba(255, 255, 255, 0.92); /* 살짝 투명도를 주어 고급스러운 유광 느낌 */
-  backdrop-filter: blur(10px); /* 배경 흐림 효과로 힙한 감성 추가 */
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
   width: 100%;
-  max-width: 460px;
-  border-radius: 24px;
-  box-shadow: 0 12px 40px rgba(255, 107, 129, 0.15);
-  padding: 40px 28px;
+  max-width: 480px;
+  border-radius: 16px; /* 과도한 동글동글함 제거, 정갈한 라운딩 */
+  box-shadow: 0 16px 40px rgba(255, 107, 129, 0.12);
+  padding: 45px 32px;
   box-sizing: border-box;
   margin: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  text-align: center; /* 내부의 텍스트와 박스들을 기본적으로 가운데 정렬 */
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 💡 내부 모든 박스 가로축 기준 정중앙 정렬 */
+  text-align: center;
 }
 
 /* ==========================================
-   3. 세련된 쿨톤 핑크 포인트 구성요소
+   3. 메인 타이틀 & 중앙 정렬 입력 영역
    ========================================== */
 h1 {
-  color: #ff477e; /* 세련된 쿨 체리 핑크 */
+  color: #ff477e; /* 쿨 체리 핑크 */
   margin-top: 0;
-  margin-bottom: 25px;
-  font-size: 2rem;
-  font-weight: 800; /* 트렌디한 두꺼운 폰트 */
-  letter-spacing: -0.5px;
+  margin-bottom: 35px;
+  font-size: 2.4rem; /* 💡 메인 텍스트 사이즈 대폭 확대 */
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  width: 100%;
+  text-align: center;
 }
 
 .input-group {
   display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  justify-content: center; /* 입력그룹 통째로 가운데 정렬 */
+  flex-direction: column; /* 💡 가로가 아닌 세로 배열로 변경하여 구조적 정돈 */
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 25px;
 }
 
-/* 깔끔하고 엣지있는 라운드 입력창 */
+/* 정갈한 모던 입력창 */
 input[type="text"] {
-  flex: 1;
-  padding: 14px 18px;
-  border: 2px solid #ffaec0;
-  border-radius: 14px;
+  width: 100%;
+  padding: 15px 18px;
+  border: 1.5px solid #ffccd7;
+  border-radius: 8px; /* 직관적인 사각형 무드 */
   font-family: inherit;
   font-size: 1rem;
   font-weight: 500;
   color: #ff477e;
   outline: none;
   background-color: #fffafb;
-  transition: all 0.25s ease;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  text-align: center; /* 입력하는 글자도 정중앙 */
 }
 
 input[type="text"]:focus {
   border-color: #ff477e;
   background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(255, 71, 126, 0.15);
+  box-shadow: 0 0 0 3px rgba(255, 71, 126, 0.1);
 }
 
 button {
@@ -83,49 +92,236 @@ button {
   transition: all 0.2s ease;
 }
 
-/* 추가 버튼 (쿨 핑크 매칭) */
+/* 💡 추가 및 시작하기 버튼을 박스 구조 내 정가운데 배치 */
 #add-btn {
+  width: 100%; /* 너비를 꽉 채워 깔끔하게 배치 */
   background-color: #ff477e;
   color: white;
-  padding: 14px 24px;
-  border-radius: 14px;
+  padding: 14px;
+  border-radius: 8px;
   font-size: 1rem;
-  box-shadow: 0 4px 12px rgba(255, 71, 126, 0.25);
+  box-shadow: 0 4px 12px rgba(255, 71, 126, 0.2);
+  box-sizing: border-box;
 }
 
 #add-btn:hover {
-  background-color: #ff1f60;
+  background-color: #e03265;
   transform: translateY(-1px);
 }
 
-/* 추천받기 메인 버튼 (네온 핑크 그라데이션) */
+/* 추천받기 메인 버튼 (트렌디 플랫 그라데이션) */
 #recommend-btn {
   width: 100%;
-  background: linear-gradient(135deg, #ff477e 0%, #ff76a0 100%);
+  background: linear-gradient(90deg, #ff477e 0%, #ff6b95 100%);
   color: white;
   padding: 16px;
-  border-radius: 16px;
-  font-size: 1.15rem;
-  margin-top: 10px;
-  box-shadow: 0 6px 20px rgba(255, 71, 126, 0.3);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  margin-top: 5px;
+  box-shadow: 0 6px 20px rgba(255, 71, 126, 0.25);
   letter-spacing: 0.5px;
+  box-sizing: border-box;
 }
 
 #recommend-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 71, 126, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 71, 126, 0.35);
 }
 
-/* 재료 태그 리스트 */
+/* ==========================================
+   4. 💡 입력된 재료 정갈한 전용 텍스트 박스 영역
+   ========================================== */
 .ingredients-list {
+  width: 100%;
+  background-color: #fff9fa; /* 재료들이 담길 깔끔한 파스텔 핑크 박스 */
+  border: 1px solid #ffe3e9;
+  border-radius: 10px;
+  padding: 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 20px;
-  justify-content: center; /* 태그들 가운데 정렬 */
+  margin-bottom: 25px;
+  justify-content: center; /* 박스 내부 중앙 정렬 */
+  box-sizing: border-box;
+  min-height: 54px;
 }
 
 .ingredient-tag {
-  background-color: #fff0f3;
-  border: 1px solid #ffccd7;
+  background-color: #ffffff;
+  border: 1px solid #ffbccc;
   color: #ff477e;
+  padding: 6px 12px;
+  border-radius: 6px; /* 아기자기함 제거, 세련된 각 */
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 5px rgba(255, 71, 126, 0.04);
+}
+
+.delete-btn {
+  background: none;
+  color: #ffaaac;
+  font-size: 0.85rem;
+  padding: 0;
+}
+
+.delete-btn:hover {
+  color: #ff477e;
+}
+
+/* ==========================================
+   5. 💡 트렌디 결과 레시피 카드 박스 (가독성 극대화)
+   ========================================== */
+.recipe-card {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ffe3e9;
+  border-top: 5px solid #ff477e; /* 🎀 위쪽에 엣지있는 탑라인 배치로 트렌디함 부각 */
+  padding: 28px 20px;
+  margin-top: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 카드 내 모든 구성요소 완벽 센터 정렬 */
+  box-sizing: border-box;
+}
+
+/* 레시피 제목 박스 */
+.recipe-title {
+  color: #ff477e;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.45rem;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+}
+
+/* 💡 개별 정보 가독성을 위한 분할용 파스텔 핑크 텍스트 박스 */
+.recipe-desc-box {
+  width: 100%;
+  background-color: #fff9fa;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.recipe-desc {
+  color: #5a6573;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+}
+
+/* 안내 정보 박스 (일치율 및 부족한 재료) */
+.recipe-info-block {
+  width: 100%;
+  background-color: #fff4f6; /* 조금 더 강조된 쿨톤 파스텔 핑크 */
+  border: 1px solid #ffd6e0;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 내부 정렬 완전 일치 */
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.recipe-match, .recipe-missing {
+  color: #333333;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* 일치율 조건별 텍스트 박스 배지 */
+.match-badge {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.match-red { background-color: #ff477e; } 
+.match-yellow { background-color: #f1c40f; color: #2c3e50; } 
+.match-green { background-color: #2ecc71; } 
+
+/* 부족한 재료 배치 박스 */
+.missing-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.missing-item-badge {
+  background-color: #ffffff;
+  border: 1px solid #ffd6e0;
+  color: #d63031;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.all-cleared-badge {
+  color: #2ecc71;
+  font-weight: 700;
+}
+
+.card-divider {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ffd6e0, transparent);
+  margin: 15px 0;
+  width: 100%;
+}
+
+/* 💡 만드는 방법 정갈한 텍스트 박스 영역 */
+.recipe-steps {
+  width: 100%;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-steps-title {
+  font-weight: 700;
+  color: #ff477e;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.steps-content {
+  background-color: #ffffff;
+  border: 1px solid #ffd6e0;
+  padding: 18px 16px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center; /* 내용까지 가독성 중심의 가운데 정렬 */
+  line-height: 1.6;
+  color: #444444;
+}
+
+/* 로딩 및 에러 */
+.loading, .error-msg {
+  text-align: center;
+  padding: 25px;
+  font-weight: 700;
+  color: #ff477e;
+  font-size: 1.1rem;
+}
