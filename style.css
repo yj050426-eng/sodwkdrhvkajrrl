@@ -1,476 +1,90 @@
-/* =========================
-전체 배경
-========================= */
-
+/* 전체적인 깔끔한 폰트 및 배경 세팅 */
 body {
-
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f5f6fa;
   margin: 0;
-  padding: 0;
-
-  font-family: "Pretendard", sans-serif;
-
-  background: linear-gradient(
-    135deg,
-    #ffe4ec,
-    #ffd6e7,
-    #ffc2dc
-  );
-
-  min-height: 100vh;
-
-  text-align: center;
-
-  color: #ff4f87;
+  padding: 20px;
 }
 
-
-/* =========================
-시작 화면
-========================= */
-
-#start-screen {
-
-  height: 100vh;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  align-items: center;
-}
-
-#start-screen h1 {
-
-  font-size: 50px;
-
-  color: white;
-
-  text-shadow:
-    0 4px 10px rgba(0,0,0,0.15);
-
-  margin-bottom: 30px;
-}
-
-
-/* =========================
-시작 버튼
-========================= */
-
-#start-btn {
-
-  padding: 18px 45px;
-
-  border: none;
-
-  border-radius: 20px;
-
-  font-size: 22px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  background: linear-gradient(
-    135deg,
-    #ff7eb3,
-    #ff4f87
-  );
-
-  color: white;
-
-  box-shadow:
-    0 8px 20px rgba(255, 105, 180, 0.3);
-
-  transition: 0.3s;
-}
-
-#start-btn:hover {
-
-  transform: scale(1.05);
-
-  opacity: 0.9;
-}
-
-
-/* =========================
-메인 화면
-========================= */
-
-#main-screen {
-
-  display: none;
-
-  padding: 40px 20px;
-}
-
-
-/* =========================
-입력창
-========================= */
-
-#ingredient-input {
-
-  width: 280px;
-
-  padding: 14px;
-
-  border: none;
-
-  border-radius: 15px;
-
-  background: #fff0f5;
-
-  font-size: 16px;
-
-  outline: none;
-
-  box-shadow:
-    0 4px 10px rgba(255,182,193,0.3);
-}
-
-
-/* =========================
-버튼 공통
-========================= */
-
-#add-btn,
-#recommend-btn {
-
-  padding: 14px 22px;
-
-  border: none;
-
-  border-radius: 15px;
-
-  cursor: pointer;
-
-  background: linear-gradient(
-    135deg,
-    #ff9ac2,
-    #ff6fa5
-  );
-
-  color: white;
-
-  font-size: 15px;
-
-  font-weight: bold;
-
-  margin-left: 10px;
-
-  box-shadow:
-    0 4px 10px rgba(255,105,180,0.25);
-
-  transition: 0.3s;
-}
-
-#add-btn:hover,
-#recommend-btn:hover {
-
-  transform: scale(1.05);
-
-  opacity: 0.9;
-}
-
-
-/* =========================
-재료 리스트
-========================= */
-
-#ingredients-list {
-
-  margin-top: 25px;
-}
-
-.ingredient-tag {
-
-  display: inline-block;
-
-  background: linear-gradient(
-    135deg,
-    #ffb6d5,
-    #ff8fb8
-  );
-
-  color: white;
-
-  padding: 10px 16px;
-
-  border-radius: 25px;
-
-  margin: 6px;
-
-  font-weight: bold;
-
-  box-shadow:
-    0 4px 10px rgba(255,182,193,0.3);
-}
-
-.ingredient-tag button {
-
-  margin-left: 10px;
-
-  border: none;
-
-  background: transparent;
-
-  color: white;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  font-size: 15px;
-}
-
-
-/* =========================
-결과 박스
-========================= */
-
-#result {
-
-  margin-top: 35px;
-
-  width: 85%;
-
-  max-width: 700px;
-
-  margin-left: auto;
-  margin-right: auto;
-
-  background: rgba(255,255,255,0.7);
-
-  backdrop-filter: blur(10px);
-
-  border-radius: 30px;
-
-  padding: 30px;
-
-  box-shadow:
-    0 8px 25px rgba(255,182,193,0.3);
-
-  color: #ff4f87;
-
-  text-align: left;
-}
-
-
-/* =========================
-결과 제목
-========================= */
-
-#result h2 {
-
-  text-align: center;
-
-  color: #ff4f87;
-}
-
-
-/* =========================
-레시피 단계
-========================= */
-
-#result ol {
-
-  line-height: 2;
-}
-
-
-/* =========================
-스크롤 부드럽게
-========================= */
-
-html {
-
-  scroll-behavior: smooth;
-}
-
-/* 재료 태그 */
-
-.ingredient-tag {
-
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  background: linear-gradient(
-    135deg,
-    #ffb6d5,
-    #ff8fb8
-  );
-
-  color: white;
-
-  padding: 10px 16px;
-
-  border-radius: 25px;
-
-  margin: 6px;
-
-  font-weight: bold;
-
-  box-shadow:
-    0 4px 10px rgba(255,182,193,0.3);
-
-}
-
-.delete-btn {
-
-  border: none;
-
-  background: white;
-
-  color: #ff4f87;
-
-  width: 22px;
-
-  height: 22px;
-
-  border-radius: 50%;
-
-  cursor: pointer;
-
-  font-weight: bold;
-
-}
-
-
-/* 레시피 카드 */
-
-.recipe-card {
-
-  background: white;
-
-  border-radius: 25px;
-
-  padding: 25px;
-
-  margin-bottom: 25px;
-
-  box-shadow:
-    0 8px 20px rgba(255,182,193,0.25);
-
-}
-
-.recipe-card h2 {
-
-  color: #ff4f87;
-
-}
-
-.recipe-description {
-
-  line-height: 1.8;
-
-  margin-top: 10px;
-
-}
-
-.recipe-match {
-
-  font-weight: bold;
-
-  margin-top: 15px;
-
-  color: #ff6fa5;
-
-}
-
-.recipe-steps {
-
-  margin-top: 20px;
-
-  line-height: 1.8;
-
-}
-
-/* 생성중... 로딩 글씨 디자인 */
-.loading {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #e67e22;
-  text-align: center;
-  margin: 20px 0;
-}
-
-/* 💡 핵심: 각각 분리될 레시피 개별 카드 디자인 */
+/* 💡 [수정] 레시피 전체 카드 스타일 - 왼쪽 라인을 빨간색에서 분홍색(#ff7675)으로 전면 교체 */
 .recipe-card {
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 예쁜 그림자 테두리 */
-  padding: 24px;
-  margin-bottom: 25px; /* 박스 간의 간격 띄우기 */
-  border-left: 6px solid #ff6b6b; /* 포인트 컬러 선 */
-  transition: transform 0.2s;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-bottom: 25px;
+  border-left: 6px solid #ff7675; /* 🎀 여기가 분홍색 포인트 라인입니다! */
+  transition: transform 0.2s ease;
 }
 
 .recipe-card:hover {
-  transform: translateY(-3px); /* 마우스 올렸을 때 살짝 들리는 효과 */
+  transform: translateY(-2px);
 }
 
 .recipe-title {
   color: #2c3e50;
   margin-top: 0;
-  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
 }
 
 .recipe-desc {
   color: #7f8c8d;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  line-height: 1.4;
 }
 
-/* 재료 일치율 강조 태그 */
-.match-badge {
-  background-color: #ff6b6b;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.card-divider {
-  border: 0;
-  height: 1px;
-  background: #f1f2f6;
-  margin: 15px 0;
-}
-
-/* 요리 방법 줄바꿈 영역 스타일 */
-.steps-content {
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
-  color: #34495e;
-  line-height: 1.8; /* 줄간격을 넓혀 가독성 향상 */
-  font-size: 1rem;
-}
-/* 정보 영역 세로 정렬 구조 */
 .recipe-info-block {
-  display: flex;
-  flex-direction: column; /* 세로로 나열 */
-  gap: 10px;
-  margin: 15px 0;
+  background-color: #f8f9fa;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
 }
 
-/* 부족한 재료 배지 리스트 감싸는 박스 */
+.recipe-match, .recipe-missing {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #333333;
+}
+
+.recipe-missing {
+  margin-bottom: 0;
+}
+
+/* 기본 일치율 배지 공통 양식 */
+.match-badge {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #ffffff;
+  display: inline-block;
+}
+
+/* 💡 [추가] 조건별 텍스트 박스 색상 정의 */
+.match-red {
+  background-color: #ff7675; /* 0~40%: 부드러운 빨간색 */
+}
+
+.match-yellow {
+  background-color: #f1c40f; /* 41~70%: 산뜻한 노란색 */
+  color: #2c3e50; /* 노란 배경에 글자가 잘 보이도록 어두운 톤 배치 */
+}
+
+.match-green {
+  background-color: #2ecc71; /* 71~100%: 청량한 초록색 */
+}
+
+/* 부족한 재료 배지 디자인 */
 .missing-list {
   display: inline-block;
   margin-top: 5px;
 }
 
-/* 부족한 재료 빨간색 배지 */
 .missing-item-badge {
-  background-color: #ff4757;
-  color: white;
-  padding: 3px 8px;
+  background-color: #ffeaa7;
+  color: #d63031;
+  padding: 2px 7px;
   border-radius: 4px;
   font-size: 0.85rem;
   font-weight: bold;
@@ -479,90 +93,30 @@ html {
   margin-bottom: 5px;
 }
 
-/* 일치율 배지 */
-.match-badge {
-  background-color: #ff6b6b;
-  color: white;
-  padding: 3px 10px;
-  border-radius: 20px;
+.all-cleared-badge {
+  color: #2ecc71;
   font-weight: bold;
-}
-
-/* 💡 만드는 방법 정렬용 핵심 CSS */
-.steps-content {
-  background-color: #f8f9fa;
-  padding: 15px 20px;
-  border-radius: 8px;
-  color: #2c3e50;
-  line-height: 2; /* 줄간격을 넓혀 가독성 향상 */
-  font-size: 1rem;
-  white-space: pre-wrap; /* 💡 코드 내의 실제 줄바꿈(\n)을 화면에 그대로 출력 */
-}
-
-.recipe-card {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 24px;
-  margin-bottom: 25px;
-  border-left: 6px solid #ff6b6b;
+  font-size: 0.9rem;
 }
 
 .card-divider {
   border: 0;
   height: 1px;
-  background: #f1f2f6;
+  background-color: #edf2f7;
   margin: 15px 0;
 }
-/* 필요한 양념 영역 정렬 및 배지 스타일 */
-.recipe-seasonings {
-  margin-top: 5px;
+
+/* 만드는 방법 영역 */
+.recipe-steps {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #34495e;
 }
 
-.seasoning-list {
-  display: inline-block;
-  margin-top: 5px;
-}
-
-/* 양념/조미료 전용 민트색 배지 */
-.seasoning-item-badge {
-  background-color: #2ed573;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: bold;
-  display: inline-block;
-  margin-right: 5px;
-  margin-bottom: 5px;
-}
-
-.no-seasoning-badge {
-  color: #a4b0be;
-  font-size: 0.9rem;
-  font-style: italic;
-}
-/* 양념/조미료 전용 민트색 배지 스타일 */
-.recipe-seasonings {
-  margin-top: 5px;
-}
-.seasoning-list {
-  display: inline-block;
-  margin-top: 5px;
-}
-.seasoning-item-badge {
-  background-color: #2ed573;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: bold;
-  display: inline-block;
-  margin-right: 5px;
-  margin-bottom: 5px;
-}
-.no-seasoning-badge {
-  color: #a4b0be;
-  font-size: 0.9rem;
-  font-style: italic;
+.steps-content {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 15px;
+  border-radius: 6px;
+  white-space: pre-wrap; /* 서버 줄바꿈 대응 */
 }
