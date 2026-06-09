@@ -53,38 +53,35 @@ ${ingredients.join(", ")}
 
 `;
 
-    const response = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
+const response = await fetch(
+  "https://openrouter.ai/api/v1/chat/completions",
+  {
 
-        method: "POST",
+    method: "POST",
 
-        headers: {
+    headers: {
+      "Authorization":
+        `Bearer ${process.env.OPENROUTER_API_KEY}`,
 
-          "Authorization":
-            `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      "Content-Type":
+        "application/json"
+    },
 
-          "Content-Type":
-            "application/json"
+    body: JSON.stringify({
 
-        },
+      model: "openai/gpt-4o-mini",
 
-        body: JSON.stringify({
+      messages: [
+        {
+          role: "user",
+          content: prompt
+        }
+      ]
 
-          model: "openai/gpt-4o-mini"
+    })
 
-          messages: [
-            {
-              role: "user",
-              content: prompt
-            }
-          ]
-
-        })
-
-      }
-    );
-
+  }
+);
     const data =
       await response.json();
 
