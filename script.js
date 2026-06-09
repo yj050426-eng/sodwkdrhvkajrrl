@@ -1,331 +1,234 @@
-// ===============================
-// 재료 배열
-// ===============================
+window.addEventListener("DOMContentLoaded", () => {
 
-let ingredientsArray = [];
+  const startBtn =
+    document.getElementById("startBtn");
 
+  const introScreen =
+    document.getElementById("introScreen");
 
-// ===============================
-// HTML 요소 가져오기
-// ===============================
+  const mainScreen =
+    document.getElementById("mainScreen");
 
-const ingredientInput =
-  document.getElementById("ingredient-input");
+  const ingredientInput =
+    document.getElementById("ingredientInput");
 
-const addBtn =
-  document.getElementById("add-btn");
+  const addBtn =
+    document.getElementById("addBtn");
 
-const ingredientsList =
-  document.getElementById("ingredients-list");
+  const ingredientList =
+    document.getElementById("ingredientList");
 
-const recommendBtn =
-  document.getElementById("recommend-btn");
+  const recommendBtn =
+    document.getElementById("recommendBtn");
 
-const resultBox =
-  document.getElementById("result");
+  const resultBox =
+    document.getElementById("resultBox");
 
-const startBtn =
-  document.getElementById("start-btn");
+  const bgm =
+    document.getElementById("bgm");
 
-const startScreen =
-  document.getElementById("start-screen");
 
-const mainScreen =
-  document.getElementById("main-screen");
+  let ingredients = [];
 
-const bgm =
-  document.getElementById("bgm");
 
+  // 시작 버튼
+  startBtn.addEventListener("click", async () => {
 
-// ===============================
-// 처음에는 메인 숨기기
-// ===============================
+    try {
 
-mainScreen.style.display = "none";
+      await bgm.play();
 
+    } catch(error) {
 
-// ===============================
-// 시작 버튼
-// ===============================
-
-startBtn.addEventListener("click", async () => {
-
-  // 시작 화면 숨기기
-  startScreen.style.display = "none";
-
-  // 메인 화면 보이기
-  mainScreen.style.display = "block";
-
-  // 음악 재생
-  try {
-
-    bgm.volume = 1.0;
-
-    bgm.currentTime = 0;
-
-    await bgm.play();
-
-    console.log("🎵 음악 재생 성공");
-
-  } catch(error) {
-
-    console.log("❌ 음악 재생 실패");
-
-    console.log(error);
-
-  }
-
-});
-
-
-// ===============================
-// 재료 추가
-// ===============================
-
-function addIngredient() {
-
-  const ingredient =
-    ingredientInput.value.trim();
-
-  if (ingredient === "") {
-
-    return;
-
-  }
-
-  if (ingredientsArray.includes(ingredient)) {
-
-    alert("이미 추가된 재료입니다.");
-
-    return;
-
-  }
-
-  ingredientsArray.push(ingredient);
-
-  renderIngredients();
-
-  ingredientInput.value = "";
-
-}
-
-
-// ===============================
-// 재료 출력
-// ===============================
-
-function renderIngredients() {
-
-  ingredientsList.innerHTML = "";
-
-  ingredientsArray.forEach((ingredient, index) => {
-
-    const tag =
-      document.createElement("div");
-
-    tag.className = "ingredient-tag";
-
-    tag.innerHTML = `
-      ${ingredient}
-      <button onclick="removeIngredient(${index})">
-        X
-      </button>
-    `;
-
-    ingredientsList.appendChild(tag);
-
-  });
-
-}
-
-
-// ===============================
-// 재료 삭제
-// ===============================
-
-function removeIngredient(index) {
-
-  ingredientsArray.splice(index, 1);
-
-  renderIngredients();
-
-}
-
-
-// ===============================
-// 버튼 클릭 추가
-// ===============================
-
-addBtn.addEventListener(
-  "click",
-  addIngredient
-);
-
-
-// ===============================
-// 엔터 추가
-// ===============================
-
-ingredientInput.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (event.key === "Enter") {
-
-      addIngredient();
+      console.log(error);
 
     }
 
+    introScreen.style.display = "none";
+
+    mainScreen.style.display = "flex";
+
+  });
+
+
+  // 재료 추가
+  addBtn.addEventListener("click", () => {
+
+    const ingredient =
+      ingredientInput.value.trim();
+
+    if (!ingredient) return;
+
+    ingredients.push(ingredient);
+
+    renderIngredients();
+
+    ingredientInput.value = "";
+
+  });
+
+
+  // 엔터 입력
+  ingredientInput.addEventListener("keypress", (e) => {
+
+    if (e.key === "Enter") {
+
+      addBtn.click();
+
+    }
+
+  });
+
+
+  // 재료 렌더링
+  function renderIngredients() {
+
+    ingredientList.innerHTML = "";
+
+    ingredients.forEach((ingredient, index) => {
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "ingredient-item";
+
+      item.innerHTML = `
+        ${ingredient}
+        <button onclick="removeIngredient(${index})">
+          ❌
+        </button>
+      `;
+
+      ingredientList.appendChild(item);
+
+    });
+
   }
-);
 
 
-// ===============================
-// 레시피 추천
-// ===============================
+  // 삭제
+  window.removeIngredient = (index) => {
 
-recommendBtn.addEventListener(
-  "click",
-  async () => {
+    ingredients.splice(index, 1);
 
-    if (ingredientsArray.length === 0) {
+    renderIngredients();
 
-      alert("재료를 입력해주세요.");
+  };
+
+
+  // 레시피 추천
+  recommendBtn.addEventListener("click", async () => {
+
+    if (ingredients.length === 0) {
+
+      alert("재료를 입력해주세요!");
 
       return;
 
     }
 
     resultBox.innerHTML =
-      "<h2>🤖 AI가 레시피 생성중...</h2>";
+      "<p>🍳 레시피 생성중...</p>";
 
     try {
 
-      const response = await fetch(
-        "http://localhost:3000/recipe",
-        {
+      const response = await fetch("/recipe", {
 
-          method: "POST",
+        method: "POST",
 
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
 
-          body: JSON.stringify({
-            ingredients:
-              ingredientsArray
-          })
+        body: JSON.stringify({
+          ingredients
+        })
 
-        }
-      );
+      });
 
       const text =
         await response.text();
 
-      const cleaned = text
-        .replace(/```json/g, "")
-        .replace(/```/g, "")
-        .trim();
+      console.log(text);
 
       const data =
-        JSON.parse(cleaned);
-
-      const recipes =
-        data.recipes || [];
+        JSON.parse(text);
 
       resultBox.innerHTML = "";
 
-      recipes.forEach((recipe) => {
+      if (!data.recipes) {
 
-        let ownedHTML = "";
+        resultBox.innerHTML =
+          "<p>❌ 레시피 생성 실패</p>";
 
-        (recipe.ownedIngredients || [])
-        .forEach((item) => {
+        return;
 
-          ownedHTML += `
-            <p style="color:green;">
-              ✅ ${item}
-            </p>
-          `;
+      }
 
-        });
+      data.recipes.forEach((recipe) => {
 
+        const card =
+          document.createElement("div");
 
-        let missingHTML = "";
+        card.className =
+          "recipe-card";
 
-        (recipe.missingIngredients || [])
-        .forEach((item) => {
+        card.innerHTML = `
 
-          missingHTML += `
-            <p style="color:red;">
-              ❌ ${item}
-            </p>
-          `;
+          <h2>
+            🍽 ${recipe.name || ""}
+          </h2>
 
-        });
+          <p>
+            ${recipe.description || ""}
+          </p>
 
+          <p>
+            💖 재료 일치율:
+            ${recipe.matchScore || 0}%
+          </p>
 
-        let stepsHTML = "";
+          <h3>
+            ✅ 가지고 있는 재료
+          </h3>
 
-        (recipe.steps || [])
-        .forEach((step) => {
+          <ul>
+            ${(recipe.ownedIngredients || [])
+              .map(item =>
+                `<li>${item}</li>`
+              )
+              .join("")}
+          </ul>
 
-          stepsHTML += `
-            <li>${step}</li>
-          `;
+          <h3>
+            🛒 부족한 재료
+          </h3>
 
-        });
+          <ul>
+            ${(recipe.missingIngredients || [])
+              .map(item =>
+                `<li>${item}</li>`
+              )
+              .join("")}
+          </ul>
 
+          <h3>
+            👩‍🍳 요리 순서
+          </h3>
 
-        resultBox.innerHTML += `
-
-          <div style="
-            background:white;
-            padding:25px;
-            border-radius:25px;
-            margin-top:25px;
-          ">
-
-            <h2>
-              🍳 ${recipe.name}
-            </h2>
-
-<p>
-  ${recipe.description || ""}
-</p>
-
-            <h3>
-              재료 일치율
-            </h3>
-
-            <p>
-              ${recipe.matchScore}%
-            </p>
-
-            <h3>
-              가지고 있는 재료
-            </h3>
-
-            ${ownedHTML}
-
-            <h3>
-              부족한 재료
-            </h3>
-
-            ${missingHTML}
-
-            <h3>
-              만드는 방법
-            </h3>
-
-            <ol>
-              ${stepsHTML}
-            </ol>
-
-          </div>
+          <ol>
+            ${(recipe.steps || [])
+              .map(step =>
+                `<li>${step}</li>`
+              )
+              .join("")}
+          </ol>
 
         `;
+
+        resultBox.appendChild(card);
 
       });
 
@@ -333,11 +236,11 @@ recommendBtn.addEventListener(
 
       console.log(error);
 
-      resultBox.innerHTML = `
-        <h2>⚠️ 오류 발생</h2>
-      `;
+      resultBox.innerHTML =
+        "<p>❌ 서버 오류 발생</p>";
 
     }
 
-  }
-);
+  });
+
+});
