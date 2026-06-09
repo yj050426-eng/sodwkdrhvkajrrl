@@ -1,9 +1,16 @@
 /* ==========================================
-   1. 전체 레이아웃 및 파스텔 핑크 배경 세팅
+   1. 웹 폰트 로드 (귀여우면서 가독성 좋은 폰트 2종)
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Noto+Sans+KR:wght@400;700&display=swap');
+
+/* ==========================================
+   2. 전체 레이아웃 및 파스텔 핑크 그라데이션 배경
    ========================================== */
 body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background-color: #fff0f2; /* 💕 은은하고 화사한 딸기우유빛 분홍색 배경 */
+  /* 폰트는 기본적으로 가독성이 좋으면서 동글동글한 국산 폰트 적용 */
+  font-family: 'Gamja Flower', 'Noto Sans KR', sans-serif;
+  /* 💕 상큼하고 부드러운 파스텔 핑크 그라데이션 배경 */
+  background: linear-gradient(135deg, #fff0f2 0%, #ffe3e8 100%);
   margin: 0;
   padding: 0;
   display: flex;
@@ -11,178 +18,204 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  font-size: 1.15rem; /* 귀여운 폰트 특성상 크기를 살짝 키워 가독성 확보 */
 }
 
-/* 메인 컨테이너 박스 (초기 박스 감성 그대로 복구) */
+/* 메인 컨테이너 (사방 귀퉁이를 아주 동글동글하게 마감) */
 .container {
   background-color: #ffffff;
   width: 100%;
-  max-width: 500px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(255, 118, 117, 0.12);
-  padding: 30px;
+  max-width: 480px;
+  border-radius: 24px; /* 둥글둥글 폭신한 느낌 */
+  box-shadow: 0 10px 30px rgba(255, 118, 117, 0.15); /* 부드러운 분홍빛 그림자 */
+  padding: 35px 25px;
   box-sizing: border-box;
   margin: 20px;
+  border: 3px solid #fff0f2; /* 박스 테두리도 밀크 핑크 */
 }
 
 /* ==========================================
-   2. 초기 디자인 스타일 구성요소 복구 (입력창 & 버튼)
+   3. 아기자기한 구성요소 (입력창 & 버튼)
    ========================================== */
 h1 {
-  color: #2c3e50;
+  color: #ff6b81; /* 러블리한 진분홍색 */
   text-align: center;
+  margin-top: 0;
   margin-bottom: 25px;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
+  letter-spacing: -1px;
+  text-shadow: 1px 1px 0px #ffffff, 2px 2px 0px #ffe3e8;
 }
 
 .input-group {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 20px;
 }
 
+/* 입력창도 귀엽게 라운딩 */
 input[type="text"] {
   flex: 1;
-  padding: 12px 16px;
-  border: 2px solid #fcd3de;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 12px 18px;
+  border: 2.5px solid #ffe3e8;
+  border-radius: 18px; /* 사방 귀퉁이 라운딩 */
+  font-family: inherit;
+  font-size: 1.1rem;
+  color: #ff6b81;
   outline: none;
-  transition: border-color 0.2s;
+  background-color: #fffafb;
+  transition: all 0.2s ease;
 }
 
 input[type="text"]:focus {
   border-color: #ff7675;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(255, 118, 117, 0.2);
 }
 
 button {
   cursor: pointer;
   border: none;
+  font-family: inherit;
   font-weight: bold;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
-/* 메인 액션 버튼들 */
+/* 추가 버튼 */
 #add-btn {
   background-color: #ff7675;
   color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 12px 22px;
+  border-radius: 18px; /* 귀퉁이 둥글게 */
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(255, 118, 117, 0.2);
 }
 
 #add-btn:hover {
-  background-color: #e84393;
+  background-color: #ff5252;
+  transform: scale(1.03);
 }
 
+/* 추천받기 메인 버튼 */
 #recommend-btn {
   width: 100%;
-  background-color: #2ecc71;
+  background: linear-gradient(135deg, #ff7675 0%, #ff6b81 100%); /* 분홍 계열 그라데이션 */
   color: white;
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 1.1rem;
+  padding: 16px;
+  border-radius: 20px; /* 아주 동글동글하게 */
+  font-size: 1.3rem;
   margin-top: 10px;
-  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+  box-shadow: 0 6px 15px rgba(255, 107, 129, 0.3);
 }
 
 #recommend-btn:hover {
-  background-color: #27ae60;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 129, 0.4);
 }
 
-/* 재료 태그 디자인 */
+/* 내가 입력한 재료 태그 리스트 */
 .ingredients-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .ingredient-tag {
-  background-color: #fff5f6;
-  border: 1px solid #fcd3de;
-  color: #ff7675;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  background-color: #fff0f2;
+  border: 1.5px solid #ffccd5;
+  color: #ff6b81;
+  padding: 6px 14px;
+  border-radius: 25px; /* 완벽한 타원형 캡슐 모양 */
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(255, 118, 117, 0.05);
 }
 
 .delete-btn {
   background: none;
   color: #ff7675;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   padding: 0;
 }
 
+.delete-btn:hover {
+  color: #ff5252;
+  transform: scale(1.2);
+}
+
 /* ==========================================
-   3. 💡 결과 레시피 카드 (요청하신 신규 디자인 규격)
+   4. 💡 결과 레시피 카드 (귀염뽀짝 + 핑크 라인 조합)
    ========================================== */
 .recipe-card {
   background-color: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #edf2f7;
-  border-left: 6px solid #ff7675; /* 🎀 맨 왼쪽에 들어가는 얇은 분홍색 포인트 라인 */
-  padding: 20px;
-  margin-top: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  border-radius: 20px; /* 카드 사방 귀퉁이 모두 동글동글 마감 */
+  border: 2px solid #fff0f2;
+  border-left: 7px solid #ff7675; /* 🎀 맨 왼쪽의 얇은 핑크색 포인트 테두리 유지! */
+  padding: 22px;
+  margin-top: 25px;
+  box-shadow: 0 6px 18px rgba(255, 118, 117, 0.08);
   text-align: left;
 }
 
 .recipe-title {
-  color: #2c3e50;
+  color: #ff6b81; /* 타이틀도 분홍 톤으로 맞춤 */
   margin-top: 0;
   margin-bottom: 8px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 .recipe-desc {
   color: #7f8c8d;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   margin-bottom: 15px;
   line-height: 1.4;
+  font-family: 'Noto Sans KR', sans-serif; /* 설명 영역은 가독성을 위해 노토산스 스위칭 */
 }
 
 .recipe-info-block {
-  background-color: #f8f9fa;
-  padding: 12px;
-  border-radius: 8px;
+  background-color: #fffafb; /* 상자 안쪽도 은은한 핑크빛 오프화이트 */
+  border: 1px dashed #ffccd5; /* 아기자기한 점선 테두리 */
+  padding: 14px;
+  border-radius: 14px; /* 내부 블록도 동글동글 */
   margin-bottom: 15px;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
 }
 
 .recipe-match, .recipe-missing {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .recipe-missing { margin-bottom: 0; }
 
-/* 💡 조건별 텍스트 박스(배지) 신호등 색상 정의 */
+/* 일치율 조건별 텍스트 박스 배지 (신호등 색상 유지) */
 .match-badge {
-  padding: 3px 8px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 8px; /* 배지 사각형 귀퉁이도 동글동글 */
   font-weight: bold;
   color: #ffffff;
   display: inline-block;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.match-red { background-color: #ff7675; } /* 0~40%: 부드러운 빨간색 */
-.match-yellow { background-color: #f1c40f; color: #2c3e50; } /* 41~70%: 노란색 */
-.match-green { background-color: #2ecc71; } /* 71~100%: 초록색 */
+.match-red { background-color: #ff7675; } /* 0~40% 빨간색 계열 */
+.match-yellow { background-color: #f1c40f; color: #2c3e50; } /* 41~70% 노란색 */
+.match-green { background-color: #2ecc71; } /* 71~100% 초록색 */
 
 /* 부족한 재료 배지 */
 .missing-item-badge {
   background-color: #ffeaa7;
   color: #d63031;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.95rem;
   font-weight: bold;
   display: inline-block;
-  margin-right: 4px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .all-cleared-badge {
@@ -192,30 +225,32 @@ button {
 
 .card-divider {
   border: 0;
-  height: 1px;
-  background-color: #edf2f7;
-  margin: 12px 0;
+  height: 2px;
+  background: linear-gradient(to right, #ffe3e8, transparent); /* 디바이더 선도 그라데이션 분홍 */
+  margin: 15px 0;
 }
 
 /* 만드는 방법 영역 */
 .recipe-steps {
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 1.05rem;
+  line-height: 1.6;
   color: #34495e;
 }
 
 .steps-content {
-  background-color: #fafafa;
-  border: 1px solid #edf2f7;
-  padding: 12px;
-  border-radius: 6px;
+  background-color: #fffafb;
+  border: 1px solid #ffe3e8;
+  padding: 15px;
+  border-radius: 14px; /* 여기도 사방을 동글동글하게 무드 통일 */
   white-space: pre-wrap;
+  font-family: 'Noto Sans KR', sans-serif; /* 긴 줄글 가독성을 위한 노토산스 조율 */
 }
 
-/* 로딩 및 에러 메시지 */
+/* 로딩 및 에러 메시지 감성 */
 .loading, .error-msg {
   text-align: center;
-  padding: 20px;
+  padding: 25px;
   font-weight: bold;
-  color: #7f8c8d;
+  color: #ff6b81;
+  font-size: 1.2rem;
 }
