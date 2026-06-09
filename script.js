@@ -1,5 +1,5 @@
 window.onload = function () {
-  console.log("✅ 안전장치 버전 script 연결 성공");
+  console.log("✅ 안전장치 및 컬러 배지 버전 script 연결 성공");
 
   // =========================
   // 요소 가져오기 및 HTML ID 매칭 체크
@@ -14,34 +14,20 @@ window.onload = function () {
   const result = document.getElementById("result");
   const bgm = document.getElementById("bgm");
 
-  // 💡 콘솔창에 누락된 ID를 정확히 짚어주는 디버깅 내장
-  if (!startBtn) console.error("❌ HTML에 id='start-btn' 인 요소가 없습니다. 확인해주세요!");
-  if (!startScreen) console.error("❌ HTML에 id='start-screen' 인 요소가 없습니다. 확인해주세요!");
-  if (!mainScreen) console.error("❌ HTML에 id='main-screen' 인 요소가 없습니다. 확인해주세요!");
-  if (!ingredientInput) console.error("❌ HTML에 id='ingredient-input' 인 요소가 없습니다. 확인해주세요!");
-  if (!addBtn) console.error("❌ HTML에 id='add-btn' 인 요소가 없습니다. 확인해주세요!");
-  if (!recommendBtn) console.error("❌ HTML에 id='recommend-btn' 인 요소가 없습니다. 확인해주세요!");
-  if (!ingredientsList) console.error("❌ HTML에 id='ingredients-list' 인 요소가 없습니다. 확인해주세요!");
-  if (!result) console.error("❌ HTML에 id='result' 인 요소가 없습니다. 확인해주세요!");
-
-  // 필수 요소가 하나라도 없으면 코드 중단시켜 에러 가두기
   if (!startBtn || !startScreen || !mainScreen || !ingredientInput || !addBtn || !recommendBtn || !ingredientsList || !result) {
-    console.warn("⚠️ HTML ID 중 일부가 매칭되지 않아 자바스크립트 가동이 일시 중지되었습니다. HTML의 id들을 점검해주세요.");
+    console.warn("⚠️ HTML ID 중 일부가 매칭되지 않아 자바스크립트 가동이 일시 중지되었습니다.");
     return;
   }
 
-  // 초기 화면 세팅
   mainScreen.style.display = "none";
   let ingredients = [];
 
-  // 시작 버튼 클릭
   startBtn.onclick = async function () {
     try { if (bgm) await bgm.play(); } catch (e) { console.log("오디오 차단됨:", e); }
     startScreen.style.display = "none";
     mainScreen.style.display = "block";
   };
 
-  // 재료 추가 함수
   function addIngredient() {
     const ingredient = ingredientInput.value.trim();
     if (!ingredient) return;
@@ -86,8 +72,6 @@ window.onload = function () {
       if (!response.ok) throw new Error(`서버 응답 에러 (${response.status})`);
 
       const data = await response.json();
-      console.log("🔥 받은 데이터:", data);
-
       result.innerHTML = "";
 
       if (!data.recipes || data.recipes.length === 0) {
@@ -104,7 +88,7 @@ window.onload = function () {
         }
         let finalRecipeIngredients = Array.isArray(rawList) ? [...rawList] : [];
 
-        // 텍스트 마이닝 방어벽
+        // 텍스트 마이닝 기본 방어벽
         const combinedTextForSearch = ((recipe.name || "") + " " + (recipe.description || "") + " " + (recipe.steps || "")).toLowerCase();
         const dictionary = ["양파", "계란", "달걀", "밥", "식용유", "간장", "소금", "후추", "김치", "햄", "마늘", "파"];
         
@@ -129,7 +113,7 @@ window.onload = function () {
         recipe.calculatedMatch = Math.floor((matchCount / total) * 100);
       });
 
-      // 일치율 내림차순 정렬
+      // 일치율 정렬
       const sortedRecipes = data.recipes.sort((a, b) => b.calculatedMatch - a.calculatedMatch);
 
       // 카드 출력
@@ -137,6 +121,16 @@ window.onload = function () {
         const card = document.createElement("div");
         card.className = "recipe-card";
         
+        // 💡 [추가 조건문] 일치율 숫자에 따라 다른 CSS 색상 클래스 배정
+        let matchColorClass = "match-red"; // 기본값 (0~40%)
+        const matchScore = recipe.calculatedMatch;
+        
+        if (matchScore >= 41 && matchScore <= 70) {
+          matchColorClass = "match-yellow";
+        } else if (matchScore >= 71 && matchScore <= 100) {
+          matchColorClass = "match-green";
+        }
+
         const missingIngredients = recipe.cleanIngredients.filter(item => {
           const itemCleaned = item.replace(/\s+/g, "").toLowerCase();
           return !userIngredientsCleaned.some(userItem => itemCleaned.includes(userItem) || userItem.includes(itemCleaned));
@@ -161,7 +155,7 @@ window.onload = function () {
           <p class="recipe-desc"><strong>💡 설명:</strong> ${recipe.description}</p>
           
           <div class="recipe-info-block">
-            <div class="recipe-match">📌 <strong>재료 일치율:</strong> <span class="match-badge">${recipe.calculatedMatch}%</span></div>
+            <div class="recipe-match">📌 <strong>재료 일치율:</strong> <span class="match-badge ${matchColorClass}">${matchScore}%</span></div>
             <div class="recipe-missing">⚠️ <strong>부족한 재료 (전체):</strong> <div class="missing-list">${missingBadgeHTML}</div></div>
           </div>
           

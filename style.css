@@ -1,24 +1,24 @@
-/* 전체적인 깔끔한 폰트 및 배경 세팅 */
+/* 🎀 전체 배경을 화사하고 예쁜 파스텔 핑크색으로 전면 교체! */
 body {
   font-family: 'Noto Sans KR', sans-serif;
-  background-color: #f5f6fa;
+  background-color: #fff0f2; /* 💕 은은하고 화사한 딸기우유빛 분홍색 배경 */
   margin: 0;
   padding: 20px;
 }
 
-/* 💡 [수정] 레시피 전체 카드 스타일 - 왼쪽 라인을 빨간색에서 분홍색(#ff7675)으로 전면 교체 */
+/* 레시피 전체 카드 스타일 */
 .recipe-card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff; /* 카드는 흰색으로 대비를 주어야 핑크색 테두리가 확 살아납니다! */
+  border-radius: 12px;       /* 둥글둥글하게 조금 더 귀엽게 수정 */
+  box-shadow: 0 6px 16px rgba(255, 118, 117, 0.15); /* 그림자도 핑크빛으로 부드럽게 */
   padding: 20px;
   margin-bottom: 25px;
-  border-left: 6px solid #ff7675; /* 🎀 여기가 분홍색 포인트 라인입니다! */
+  border-left: 6px solid #ff7675; /* 🎀 왼쪽 포인트 핑크색 라인 */
   transition: transform 0.2s ease;
 }
 
 .recipe-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .recipe-title {
@@ -36,9 +36,9 @@ body {
 }
 
 .recipe-info-block {
-  background-color: #f8f9fa;
+  background-color: #fff5f6; /* 안내 상자 안쪽도 연한 핑크빛 톤온톤 적용 */
   padding: 12px 15px;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 15px;
 }
 
@@ -54,21 +54,21 @@ body {
 
 /* 기본 일치율 배지 공통 양식 */
 .match-badge {
-  padding: 3px 8px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
   font-weight: bold;
   color: #ffffff;
   display: inline-block;
 }
 
-/* 💡 [추가] 조건별 텍스트 박스 색상 정의 */
+/* 조건별 텍스트 박스 색상 정의 */
 .match-red {
   background-color: #ff7675; /* 0~40%: 부드러운 빨간색 */
 }
 
 .match-yellow {
   background-color: #f1c40f; /* 41~70%: 산뜻한 노란색 */
-  color: #2c3e50; /* 노란 배경에 글자가 잘 보이도록 어두운 톤 배치 */
+  color: #2c3e50; 
 }
 
 .match-green {
@@ -102,7 +102,7 @@ body {
 .card-divider {
   border: 0;
   height: 1px;
-  background-color: #edf2f7;
+  background-color: #fbdacb;
   margin: 15px 0;
 }
 
@@ -115,8 +115,8 @@ body {
 
 .steps-content {
   background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #fcd3de;
   padding: 15px;
-  border-radius: 6px;
-  white-space: pre-wrap; /* 서버 줄바꿈 대응 */
+  border-radius: 8px;
+  white-space: pre-wrap; 
 }
