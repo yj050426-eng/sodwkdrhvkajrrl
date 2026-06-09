@@ -1,122 +1,221 @@
-/* 🎀 전체 배경을 화사하고 예쁜 파스텔 핑크색으로 전면 교체! */
+/* ==========================================
+   1. 전체 레이아웃 및 파스텔 핑크 배경 세팅
+   ========================================== */
 body {
   font-family: 'Noto Sans KR', sans-serif;
   background-color: #fff0f2; /* 💕 은은하고 화사한 딸기우유빛 분홍색 배경 */
   margin: 0;
-  padding: 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
-/* 레시피 전체 카드 스타일 */
-.recipe-card {
-  background-color: #ffffff; /* 카드는 흰색으로 대비를 주어야 핑크색 테두리가 확 살아납니다! */
-  border-radius: 12px;       /* 둥글둥글하게 조금 더 귀엽게 수정 */
-  box-shadow: 0 6px 16px rgba(255, 118, 117, 0.15); /* 그림자도 핑크빛으로 부드럽게 */
-  padding: 20px;
+/* 메인 컨테이너 박스 (초기 박스 감성 그대로 복구) */
+.container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(255, 118, 117, 0.12);
+  padding: 30px;
+  box-sizing: border-box;
+  margin: 20px;
+}
+
+/* ==========================================
+   2. 초기 디자인 스타일 구성요소 복구 (입력창 & 버튼)
+   ========================================== */
+h1 {
+  color: #2c3e50;
+  text-align: center;
   margin-bottom: 25px;
-  border-left: 6px solid #ff7675; /* 🎀 왼쪽 포인트 핑크색 라인 */
-  transition: transform 0.2s ease;
+  font-size: 1.8rem;
 }
 
-.recipe-card:hover {
-  transform: translateY(-3px);
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #fcd3de;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #ff7675;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+/* 메인 액션 버튼들 */
+#add-btn {
+  background-color: #ff7675;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+#add-btn:hover {
+  background-color: #e84393;
+}
+
+#recommend-btn {
+  width: 100%;
+  background-color: #2ecc71;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+}
+
+#recommend-btn:hover {
+  background-color: #27ae60;
+  transform: translateY(-1px);
+}
+
+/* 재료 태그 디자인 */
+.ingredients-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.ingredient-tag {
+  background-color: #fff5f6;
+  border: 1px solid #fcd3de;
+  color: #ff7675;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.delete-btn {
+  background: none;
+  color: #ff7675;
+  font-size: 0.8rem;
+  padding: 0;
+}
+
+/* ==========================================
+   3. 💡 결과 레시피 카드 (요청하신 신규 디자인 규격)
+   ========================================== */
+.recipe-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #edf2f7;
+  border-left: 6px solid #ff7675; /* 🎀 맨 왼쪽에 들어가는 얇은 분홍색 포인트 라인 */
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  text-align: left;
 }
 
 .recipe-title {
   color: #2c3e50;
   margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.4rem;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
 }
 
 .recipe-desc {
   color: #7f8c8d;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin-bottom: 15px;
   line-height: 1.4;
 }
 
 .recipe-info-block {
-  background-color: #fff5f6; /* 안내 상자 안쪽도 연한 핑크빛 톤온톤 적용 */
-  padding: 12px 15px;
+  background-color: #f8f9fa;
+  padding: 12px;
   border-radius: 8px;
   margin-bottom: 15px;
+  font-size: 0.9rem;
 }
 
 .recipe-match, .recipe-missing {
-  margin-bottom: 8px;
-  font-size: 0.95rem;
-  color: #333333;
+  margin-bottom: 6px;
 }
+.recipe-missing { margin-bottom: 0; }
 
-.recipe-missing {
-  margin-bottom: 0;
-}
-
-/* 기본 일치율 배지 공통 양식 */
+/* 💡 조건별 텍스트 박스(배지) 신호등 색상 정의 */
 .match-badge {
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 3px 8px;
+  border-radius: 4px;
   font-weight: bold;
   color: #ffffff;
   display: inline-block;
+  font-size: 0.85rem;
 }
 
-/* 조건별 텍스트 박스 색상 정의 */
-.match-red {
-  background-color: #ff7675; /* 0~40%: 부드러운 빨간색 */
-}
+.match-red { background-color: #ff7675; } /* 0~40%: 부드러운 빨간색 */
+.match-yellow { background-color: #f1c40f; color: #2c3e50; } /* 41~70%: 노란색 */
+.match-green { background-color: #2ecc71; } /* 71~100%: 초록색 */
 
-.match-yellow {
-  background-color: #f1c40f; /* 41~70%: 산뜻한 노란색 */
-  color: #2c3e50; 
-}
-
-.match-green {
-  background-color: #2ecc71; /* 71~100%: 청량한 초록색 */
-}
-
-/* 부족한 재료 배지 디자인 */
-.missing-list {
-  display: inline-block;
-  margin-top: 5px;
-}
-
+/* 부족한 재료 배지 */
 .missing-item-badge {
   background-color: #ffeaa7;
   color: #d63031;
-  padding: 2px 7px;
+  padding: 2px 6px;
   border-radius: 4px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: bold;
   display: inline-block;
-  margin-right: 5px;
-  margin-bottom: 5px;
+  margin-right: 4px;
 }
 
 .all-cleared-badge {
   color: #2ecc71;
   font-weight: bold;
-  font-size: 0.9rem;
 }
 
 .card-divider {
   border: 0;
   height: 1px;
-  background-color: #fbdacb;
-  margin: 15px 0;
+  background-color: #edf2f7;
+  margin: 12px 0;
 }
 
 /* 만드는 방법 영역 */
 .recipe-steps {
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: #34495e;
 }
 
 .steps-content {
-  background-color: #ffffff;
-  border: 1px solid #fcd3de;
-  padding: 15px;
-  border-radius: 8px;
-  white-space: pre-wrap; 
+  background-color: #fafafa;
+  border: 1px solid #edf2f7;
+  padding: 12px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+}
+
+/* 로딩 및 에러 메시지 */
+.loading, .error-msg {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  color: #7f8c8d;
 }
