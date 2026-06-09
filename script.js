@@ -1,246 +1,182 @@
-window.addEventListener("DOMContentLoaded", () => {
+window.onload = function () {
+  console.log("✅ 안전장치 버전 script 연결 성공");
 
-  const startBtn =
-    document.getElementById("startBtn");
+  // =========================
+  // 요소 가져오기 및 HTML ID 매칭 체크
+  // =========================
+  const startBtn = document.getElementById("start-btn");
+  const startScreen = document.getElementById("start-screen");
+  const mainScreen = document.getElementById("main-screen");
+  const ingredientInput = document.getElementById("ingredient-input");
+  const addBtn = document.getElementById("add-btn");
+  const recommendBtn = document.getElementById("recommend-btn");
+  const ingredientsList = document.getElementById("ingredients-list");
+  const result = document.getElementById("result");
+  const bgm = document.getElementById("bgm");
 
-  const introScreen =
-    document.getElementById("introScreen");
+  // 💡 콘솔창에 누락된 ID를 정확히 짚어주는 디버깅 내장
+  if (!startBtn) console.error("❌ HTML에 id='start-btn' 인 요소가 없습니다. 확인해주세요!");
+  if (!startScreen) console.error("❌ HTML에 id='start-screen' 인 요소가 없습니다. 확인해주세요!");
+  if (!mainScreen) console.error("❌ HTML에 id='main-screen' 인 요소가 없습니다. 확인해주세요!");
+  if (!ingredientInput) console.error("❌ HTML에 id='ingredient-input' 인 요소가 없습니다. 확인해주세요!");
+  if (!addBtn) console.error("❌ HTML에 id='add-btn' 인 요소가 없습니다. 확인해주세요!");
+  if (!recommendBtn) console.error("❌ HTML에 id='recommend-btn' 인 요소가 없습니다. 확인해주세요!");
+  if (!ingredientsList) console.error("❌ HTML에 id='ingredients-list' 인 요소가 없습니다. 확인해주세요!");
+  if (!result) console.error("❌ HTML에 id='result' 인 요소가 없습니다. 확인해주세요!");
 
-  const mainScreen =
-    document.getElementById("mainScreen");
-
-  const ingredientInput =
-    document.getElementById("ingredientInput");
-
-  const addBtn =
-    document.getElementById("addBtn");
-
-  const ingredientList =
-    document.getElementById("ingredientList");
-
-  const recommendBtn =
-    document.getElementById("recommendBtn");
-
-  const resultBox =
-    document.getElementById("resultBox");
-
-  const bgm =
-    document.getElementById("bgm");
-
-
-  let ingredients = [];
-
-
-  // 시작 버튼
-  startBtn.addEventListener("click", async () => {
-
-    try {
-
-      await bgm.play();
-
-    } catch(error) {
-
-      console.log(error);
-
-    }
-
-    introScreen.style.display = "none";
-
-    mainScreen.style.display = "flex";
-
-  });
-
-
-  // 재료 추가
-  addBtn.addEventListener("click", () => {
-
-    const ingredient =
-      ingredientInput.value.trim();
-
-    if (!ingredient) return;
-
-    ingredients.push(ingredient);
-
-    renderIngredients();
-
-    ingredientInput.value = "";
-
-  });
-
-
-  // 엔터 입력
-  ingredientInput.addEventListener("keypress", (e) => {
-
-    if (e.key === "Enter") {
-
-      addBtn.click();
-
-    }
-
-  });
-
-
-  // 재료 렌더링
-  function renderIngredients() {
-
-    ingredientList.innerHTML = "";
-
-    ingredients.forEach((ingredient, index) => {
-
-      const item =
-        document.createElement("div");
-
-      item.className =
-        "ingredient-item";
-
-      item.innerHTML = `
-        ${ingredient}
-        <button onclick="removeIngredient(${index})">
-          ❌
-        </button>
-      `;
-
-      ingredientList.appendChild(item);
-
-    });
-
+  // 필수 요소가 하나라도 없으면 코드 중단시켜 에러 가두기
+  if (!startBtn || !startScreen || !mainScreen || !ingredientInput || !addBtn || !recommendBtn || !ingredientsList || !result) {
+    console.warn("⚠️ HTML ID 중 일부가 매칭되지 않아 자바스크립트 가동이 일시 중지되었습니다. HTML의 id들을 점검해주세요.");
+    return;
   }
 
+  // 초기 화면 세팅
+  mainScreen.style.display = "none";
+  let ingredients = [];
 
-  // 삭제
-  window.removeIngredient = (index) => {
-
-    ingredients.splice(index, 1);
-
-    renderIngredients();
-
+  // 시작 버튼 클릭
+  startBtn.onclick = async function () {
+    try { if (bgm) await bgm.play(); } catch (e) { console.log("오디오 차단됨:", e); }
+    startScreen.style.display = "none";
+    mainScreen.style.display = "block";
   };
 
+  // 재료 추가 함수
+  function addIngredient() {
+    const ingredient = ingredientInput.value.trim();
+    if (!ingredient) return;
+    ingredients.push(ingredient);
+    ingredientInput.value = "";
+    renderIngredients();
+  }
 
-  // 레시피 추천
-  recommendBtn.addEventListener("click", async () => {
+  addBtn.onclick = addIngredient;
+  ingredientInput.onkeypress = function (e) { if (e.key === "Enter") addIngredient(); };
 
+  function renderIngredients() {
+    ingredientsList.innerHTML = "";
+    ingredients.forEach(function (ingredient, index) {
+      const tag = document.createElement("div");
+      tag.className = "ingredient-tag";
+      tag.innerHTML = `<span>${ingredient}</span><button class="delete-btn">✖</button>`;
+      tag.querySelector(".delete-btn").onclick = function () {
+        ingredients.splice(index, 1);
+        renderIngredients();
+      };
+      ingredientsList.appendChild(tag);
+    });
+  }
+
+  // 레시피 추천 요청
+  recommendBtn.onclick = async function () {
     if (ingredients.length === 0) {
-
-      alert("재료를 입력해주세요!");
-
+      alert("재료를 최소 하나 이상 입력해주세요!");
       return;
-
     }
 
-    resultBox.innerHTML =
-      "<p>🍳 레시피 생성중...</p>";
+    result.innerHTML = "<div class='loading'>🍳 AI가 열심히 레시피를 생성하는 중입니다...</div>";
 
     try {
-
       const response = await fetch("/recipe", {
-
         method: "POST",
-
-        headers: {
-          "Content-Type":
-            "application/json"
-        },
-
-        body: JSON.stringify({
-          ingredients
-        })
-
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ingredients: ingredients })
       });
 
-      const text =
-        await response.text();
+      if (!response.ok) throw new Error(`서버 응답 에러 (${response.status})`);
 
-      console.log(text);
+      const data = await response.json();
+      console.log("🔥 받은 데이터:", data);
 
-      const data =
-        JSON.parse(text);
+      result.innerHTML = "";
 
-      resultBox.innerHTML = "";
-
-      if (!data.recipes) {
-
-        resultBox.innerHTML =
-          "<p>❌ 레시피 생성 실패</p>";
-
+      if (!data.recipes || data.recipes.length === 0) {
+        result.innerHTML = "<div class='error-msg'>❌ 레시피가 없습니다.</div>";
         return;
-
       }
 
-      data.recipes.forEach((recipe) => {
+      const userIngredientsCleaned = ingredients.map(i => i.replace(/\s+/g, "").toLowerCase());
 
-        const card =
-          document.createElement("div");
+      data.recipes.forEach(recipe => {
+        let rawList = recipe.ingredients || recipe.allIngredients || recipe.allingredients || [];
+        if (typeof rawList === "string") {
+          rawList = rawList.split(/[,,、\s\+]+/).filter(Boolean);
+        }
+        let finalRecipeIngredients = Array.isArray(rawList) ? [...rawList] : [];
 
-        card.className =
-          "recipe-card";
+        // 텍스트 마이닝 방어벽
+        const combinedTextForSearch = ((recipe.name || "") + " " + (recipe.description || "") + " " + (recipe.steps || "")).toLowerCase();
+        const dictionary = ["양파", "계란", "달걀", "밥", "식용유", "간장", "소금", "후추", "김치", "햄", "마늘", "파"];
+        
+        dictionary.forEach(word => {
+          if (combinedTextForSearch.includes(word.toLowerCase())) {
+            const alreadyHas = finalRecipeIngredients.some(existing => existing.replace(/\s+/g, "").includes(word));
+            if (!alreadyHas) finalRecipeIngredients.push(word);
+          }
+        });
 
-        card.innerHTML = `
+        recipe.cleanIngredients = finalRecipeIngredients;
 
-          <h2>
-            🍽 ${recipe.name || ""}
-          </h2>
+        // 일치율 연산
+        let matchCount = 0;
+        recipe.cleanIngredients.forEach(item => {
+          const itemCleaned = item.replace(/\s+/g, "").toLowerCase();
+          const isMatched = userIngredientsCleaned.some(userItem => itemCleaned.includes(userItem) || userItem.includes(itemCleaned));
+          if (isMatched) matchCount++;
+        });
 
-          <p>
-            ${recipe.description || ""}
-          </p>
-
-          <p>
-            💖 재료 일치율:
-            ${recipe.matchScore || 0}%
-          </p>
-
-          <h3>
-            ✅ 가지고 있는 재료
-          </h3>
-
-          <ul>
-            ${(recipe.ownedIngredients || [])
-              .map(item =>
-                `<li>${item}</li>`
-              )
-              .join("")}
-          </ul>
-
-          <h3>
-            🛒 부족한 재료
-          </h3>
-
-          <ul>
-            ${(recipe.missingIngredients || [])
-              .map(item =>
-                `<li>${item}</li>`
-              )
-              .join("")}
-          </ul>
-
-          <h3>
-            👩‍🍳 요리 순서
-          </h3>
-
-          <ol>
-            ${(recipe.steps || [])
-              .map(step =>
-                `<li>${step}</li>`
-              )
-              .join("")}
-          </ol>
-
-        `;
-
-        resultBox.appendChild(card);
-
+        const total = recipe.cleanIngredients.length || 1;
+        recipe.calculatedMatch = Math.floor((matchCount / total) * 100);
       });
 
-    } catch(error) {
+      // 일치율 내림차순 정렬
+      const sortedRecipes = data.recipes.sort((a, b) => b.calculatedMatch - a.calculatedMatch);
 
-      console.log(error);
+      // 카드 출력
+      sortedRecipes.forEach(function (recipe, index) {
+        const card = document.createElement("div");
+        card.className = "recipe-card";
+        
+        const missingIngredients = recipe.cleanIngredients.filter(item => {
+          const itemCleaned = item.replace(/\s+/g, "").toLowerCase();
+          return !userIngredientsCleaned.some(userItem => itemCleaned.includes(userItem) || userItem.includes(itemCleaned));
+        });
 
-      resultBox.innerHTML =
-        "<p>❌ 서버 오류 발생</p>";
+        let missingBadgeHTML = "";
+        if (missingIngredients.length > 0) {
+          missingBadgeHTML = missingIngredients
+            .map(item => `<span class="missing-item-badge">${item}</span>`)
+            .join(" ");
+        } else {
+          missingBadgeHTML = "<span class='all-cleared-badge'>👍 부족한 재료 없음!</span>";
+        }
 
+        let stepsText = recipe.steps || "";
+        let formattedSteps = stepsText.replace(/(?:\s*)(\d+\.)/g, function(match, p1) {
+          return p1 === "1." ? match : "<br><br>" + p1;
+        });
+
+        card.innerHTML = `
+          <h2 class="recipe-title">🥘 ${index + 1}. ${recipe.name}</h2>
+          <p class="recipe-desc"><strong>💡 설명:</strong> ${recipe.description}</p>
+          
+          <div class="recipe-info-block">
+            <div class="recipe-match">📌 <strong>재료 일치율:</strong> <span class="match-badge">${recipe.calculatedMatch}%</span></div>
+            <div class="recipe-missing">⚠️ <strong>부족한 재료 (전체):</strong> <div class="missing-list">${missingBadgeHTML}</div></div>
+          </div>
+          
+          <hr class="card-divider">
+          <div class="recipe-steps">
+            <p style="margin-top: 0; font-weight: bold; color: #2c3e50;">👨‍🍳 만드는 방법</p>
+            <div class="steps-content">${formattedSteps}</div>
+          </div>
+        `;
+        result.appendChild(card);
+      });
+
+    } catch (error) {
+      console.error(error);
+      result.innerHTML = `<div class='error-msg'>❌ 오류 발생: ${error.message}</div>`;
     }
-
-  });
-
-});
+  };
+};
